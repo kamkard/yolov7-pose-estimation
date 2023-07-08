@@ -3,6 +3,7 @@ import time
 import torch
 import argparse
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from torchvision import transforms
 from utils.datasets import letterbox
@@ -77,9 +78,8 @@ def run(poseweights="yolov7-w6-pose.pt",source="football1.mp4",device='cpu',view
                                             kpt_label=True)
             
                 output = output_to_keypoint(output_data)
+                pd.DataFrame(output).to_csv("testfile",index=False)
 
-                print(output_data, output)
-                break
 
                 im0 = image[0].permute(1, 2, 0) * 255 # Change format [b, c, h, w] to [h, w, c] for displaying the image.
                 im0 = im0.cpu().numpy().astype(np.uint8)
